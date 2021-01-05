@@ -37,7 +37,7 @@ function Sidebar() {
     <div className="sidebar">
       <div className="sidebar__header">
         <div className="sidebar__info">
-          <h2>Clever Programmer</h2>
+          <h2>Revature Pro</h2>
           <h3>
             <FiberManualRecordIcon />
             Nathan Ricks
@@ -56,9 +56,9 @@ function Sidebar() {
       <hr />
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr />
-      <SidebarOption Icon={AddIcon} title="Add Channel" />
+      <SidebarOption Icon={AddIcon} title="Add Channel" addChannelOption />
       {channels.map((channel) => (
-        <SidebarOption title={channel.name} id={channel.id} />
+        <SidebarOption title={channel.name} id={channel.id} key={channel.id} />
       ))}
     </div>
   );

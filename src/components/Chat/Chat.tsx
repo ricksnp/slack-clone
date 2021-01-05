@@ -6,15 +6,20 @@ import db from "../../firebase";
 import { useEffect, useState } from "react";
 import Message from "../Message/Message"
 import {IProps} from "../Message/Message";
+import ChatInput from "../ChatInput/ChatInput";
+import firebase from "firebase";
+
 function Chat() {
+
   interface ParamTypes {
     roomId: string;
   }
 
   const { roomId } = useParams<ParamTypes>();
-  const [roomDetails, setRoomDetails] = useState<any>(null);
-  const [roomMessages, setRoomMessages] = useState<any>([]);
+  const [roomDetails, setRoomDetails] = useState<firebase.firestore.DocumentData>();
+  const [roomMessages, setRoomMessages] = useState<firebase.firestore.DocumentData>([]);
   
+  // We want to reload specific room messages whenever the roomId changes
   useEffect(() => {
     if (roomId){
       db.collection('rooms').doc(roomId).onSnapshot(snapshot => (
@@ -53,6 +58,8 @@ function Chat() {
           />
         ))}
       </div>
+
+      <ChatInput channelName={roomDetails?.name} channelId={roomId} />
     </div>
   );
 }

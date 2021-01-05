@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Sidebar.css";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import CreateIcon from "@material-ui/icons/Create";
@@ -14,17 +14,21 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddIcon from "@material-ui/icons/Add";
 import db from "../../firebase";
+import { useStateValue } from "../../StateProvider";
+import firebase from "firebase";
 
 export interface IProps {
-  id: any;
-  name: String;
+  id: string;
+  name: string;
 }
 
 function Sidebar() {
-  const [channels, setChannels] = useState<IProps[]>([]);
+  const [{user}] = useStateValue();
+  const [channels, setChannels] = useState<firebase.firestore.DocumentData>();
   useEffect(() => {
     // Run this code once when the component loads
-    db.collection("rooms").onSnapshot((snapshot: { docs: any[] }) =>
+    // Sift through our collection of rooms (channels) and store it in state
+    db.collection("rooms").onSnapshot((snapshot) =>
       setChannels(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -40,7 +44,7 @@ function Sidebar() {
           <h2>Revature Pro</h2>
           <h3>
             <FiberManualRecordIcon />
-            Nathan Ricks
+            {user?.displayName}
           </h3>
         </div>
         <CreateIcon />
@@ -57,7 +61,8 @@ function Sidebar() {
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
       <hr />
       <SidebarOption Icon={AddIcon} title="Add Channel" addChannelOption />
-      {channels.map((channel) => (
+      {/* Map out each of the channels as a SidebarOption */}
+      {channels?.map((channel: IProps) => (
         <SidebarOption title={channel.name} id={channel.id} key={channel.id} />
       ))}
     </div>

@@ -1,11 +1,10 @@
-import React from 'react'
 import './Message.css'
 
 export interface IProps {
-    message: any,
-    timestamp : any,
+    message: string,
+    timestamp : any
     user: any,
-    userimage: any
+    userimage: string
 }
 
 function Message({ message, timestamp, user, userimage }: IProps) {

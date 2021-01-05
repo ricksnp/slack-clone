@@ -4,6 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 View the live demo:  https://slack-clone-11.web.app/
 
+NOTE:  Make sure you are in the root directory of the project, and type npm i to install any necessary dependencies, as you will not have
+the node_modules folder.  Then, type npm start to launch the application.
+
 ## Available Scripts
 
 In the project directory, you can run:
